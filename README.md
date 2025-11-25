@@ -1,3 +1,11 @@
+# Dependencies
+- Nodejs + npm
+    ```sh
+    wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+    # restart shell 
+    nvm install 24.11.1
+    ```
+
 # sv
 
 Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
