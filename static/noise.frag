@@ -7,7 +7,7 @@ uniform float uScale;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
 uniform float uSectionCount;
-uniform float uEdgeWidth;
+uniform float uEdgeSmoothing;
 
 varying vec2 vTexCoord;
 
@@ -98,7 +98,20 @@ void main() {
     float idx = min(floor(x), uSectionCount - 1.0);
     float frac = x - idx;
 
-    float t = smoothstep(0.0, uEdgeWidth, frac);
+    // estimate local rate of change by finite differences (cost: 2 extra noise samples)
+    // sample one pixel to the right and one pixel up in UV space
+    vec2 pixel = vec2(1.0 / uResolution.x, 1.0 / uResolution.y);
+    vec2 scaled_right  = vec2((vTexCoord.x + pixel.x) * aspect, vTexCoord.y) * uScale;
+    vec2 scaled_up     = vec2(vTexCoord.x * aspect, (vTexCoord.y + pixel.y)) * uScale;
+
+    float n_right = normalizedSnoise(vec3(scaled_right, uTime));
+    float n_up = normalizedSnoise(vec3(scaled_up, uTime));
+    float dn_dx = abs(n_right - n);
+    float dn_dy = abs(n_up - n);
+    float change = 0.5 * (dn_dx + dn_dy);
+
+    float w = uEdgeSmoothing * change;
+    float t = smoothstep(0.0, w, frac);
 
     float parity = mod(idx, 2.0);
     vec3 evenBand = mix(uColor1, uColor2, t);

@@ -4,7 +4,7 @@
 
     const MILIS_TO_SECONDS = 0.001;
 
-    let scale = $state(2.0);
+    let scale = $state(3.0);
     let speed = $state(0.01);
 
     // UI-controlled uniforms
@@ -41,7 +41,7 @@
                 noise.setUniform('uColor2', hexToRgbNormalized(color2));
                 noise.setUniform('uSectionCount', sectionCount);
                 // 0.0 => automatic edge width (shader computes approx). Set >0 to override.
-                noise.setUniform('uEdgeWidth', 0.02);
+                noise.setUniform('uEdgeSmoothing', 20);
 
                 p5.shader(noise);
             }
@@ -63,8 +63,8 @@
     </label>
     <label>
         Speed
-        <input type="range" bind:value={speed} min="0.01" max="0.5" step="0.01" />
-        <span>{speed.toFixed(2)}</span>
+        <input type="range" bind:value={speed} min="0.001" max="0.1" step="0.001" />
+        <span>{speed.toFixed(3)}</span>
     </label>
     <label>
         Color 1
