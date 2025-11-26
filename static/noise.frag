@@ -7,6 +7,7 @@ uniform float uScale;
 uniform vec3 uColor1;
 uniform vec3 uColor2;
 uniform float uSectionCount;
+uniform float uEdgeWidth;
 
 varying vec2 vTexCoord;
 
@@ -93,10 +94,17 @@ void main() {
 
     float n = normalizedSnoise(vec3(scaled, uTime));
 
-    float sectionIndex = floor(n * uSectionCount);
-    sectionIndex = min(sectionIndex, uSectionCount - 1.0);
-    float parity = mod(sectionIndex, 2.0);
+    float x = n * uSectionCount;
+    float idx = min(floor(x), uSectionCount - 1.0);
+    float frac = x - idx;
 
-    gl_FragColor = vec4(parity < 0.5 ? uColor1 : uColor2, 1.0);
+    float t = smoothstep(0.0, uEdgeWidth, frac);
+
+    float parity = mod(idx, 2.0);
+    vec3 evenBand = mix(uColor1, uColor2, t);
+    vec3 oddBand  = mix(uColor2, uColor1, t);
+    vec3 color = mix(evenBand, oddBand, parity);
+
+    gl_FragColor = vec4(color, 1.0);
 }
 

@@ -4,7 +4,7 @@
 
     const MILIS_TO_SECONDS = 0.001;
 
-    let scale = $state(1.0);
+    let scale = $state(2.0);
     let speed = $state(0.01);
 
     // UI-controlled uniforms
@@ -40,6 +40,8 @@
                 noise.setUniform('uColor1', hexToRgbNormalized(color1));
                 noise.setUniform('uColor2', hexToRgbNormalized(color2));
                 noise.setUniform('uSectionCount', sectionCount);
+                // 0.0 => automatic edge width (shader computes approx). Set >0 to override.
+                noise.setUniform('uEdgeWidth', 0.02);
 
                 p5.shader(noise);
             }
