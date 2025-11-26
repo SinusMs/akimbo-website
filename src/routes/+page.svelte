@@ -104,6 +104,7 @@
         top: 1rem;
         left: 1rem;
         display: flex;
+        flex-direction: column;
         gap: 0.75rem;
         background: rgba(255, 255, 255, 0.9);
         padding: 0.5rem 0.75rem;
@@ -115,8 +116,9 @@
 
     label {
         display: flex;
-        gap: 0.5rem;
-        align-items: center;
+        flex-direction: column;
+        gap: 0.25rem;
+        align-items: flex-start;
         font-size: 0.9rem;
     }
 
