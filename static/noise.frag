@@ -1,10 +1,9 @@
-// required precision for WebGL fragment shaders
-#ifdef GL_ES
 precision highp float;
-#endif
 
-uniform float u_time;
-uniform vec2 u_resolution;
+uniform float uTime;
+uniform vec2 uResolution;
+uniform float uScale;
+
 varying vec2 vTexCoord;
 
 // Simplex 3D Noise
@@ -85,9 +84,10 @@ float normalizedSnoise(vec3 v) {
 }
 
 void main() {
-    // use interpolated texture coordinates so the shader covers the whole plane
-    vec2 uv = vTexCoord * u_resolution;
-    float n = normalizedSnoise(vec3(uv * 0.01, u_time * 0.1));
+    float aspect = uResolution.x / uResolution.y ;
+    vec2 scaled = vec2(vTexCoord.x * aspect, vTexCoord.y ) * uScale;
+
+    float n = normalizedSnoise(vec3(scaled, uTime));
     gl_FragColor = vec4(vec3(n), 1.0);
 }
 

@@ -2,15 +2,16 @@
     import type { Shader } from "p5";
     import P5, { type Sketch } from "p5-svelte";
 
-    // // ellipse size controls (Svelte 5 runes)
-    // let width = $state(200);
-    // let height = $state(200);
+    const MILIS_TO_SECONDS = 0.001;
+
+    let scale: number = 1.0;
+    let speed: number = 0.1;
 
     const sketch: Sketch = (p5) => {
-        let shader: Shader;
+        let noise: Shader;
 
         p5.preload = () => {
-            shader = p5.loadShader('noise.vert', 'noise.frag');
+            noise = p5.loadShader('noise.vert', 'noise.frag');
         };
 
         p5.setup = () => {
@@ -18,11 +19,14 @@
         };
 
         p5.draw = () => {
-            if (shader) {
-                shader.setUniform('u_time', p5.millis() / 1000.0);
-                shader.setUniform('u_resolution', [p5.width, p5.height]);
-                p5.shader(shader);
+            if (noise) {
+                noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
+                noise.setUniform('uResolution', [p5.width, p5.height]);
+                noise.setUniform('uScale', scale);
+
+                p5.shader(noise);
             }
+            p5.noStroke();
             p5.plane(p5.width, p5.height);
         };
 
@@ -32,19 +36,18 @@
     };
 </script>
 
-<!-- <div class="controls">
+<div class="controls">
     <label>
-        Width
-        <input type="range" bind:value={width} min="10" max="1000" step="0.01" />
-        <span>{Math.round(width)}</span>
+        Scale
+        <input type="range" bind:value={scale} min="1" max="10" step="0.1" />
+        <span>{scale.toFixed(1)}</span>
     </label>
-
     <label>
-        Height
-        <input type="range" bind:value={height} min="10" max="1000" step="0.01" />
-        <span>{Math.round(height)}</span>
+        Speed
+        <input type="range" bind:value={speed} min="0.01" max="0.5" step="0.01" />
+        <span>{speed.toFixed(2)}</span>
     </label>
-</div> -->
+</div>
 
 <div class="sketch">
     <P5 {sketch} />
@@ -64,7 +67,7 @@
     }
 
     /* overlay controls */
-    /* .controls {
+    .controls {
         position: fixed;
         top: 1rem;
         left: 1rem;
@@ -87,5 +90,5 @@
 
     input[type="range"] {
         width: 160px;
-    } */
+    }
 </style>
