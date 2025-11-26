@@ -116,7 +116,7 @@ void main() {
     float frac = x - idx; // fraction inside the current band [0,1)
 
     // Distance-to-nearest-boundary (for symmetric smoothing)
-    float dist = min(frac, 1.0 - frac);
+    // float dist = min(frac, 1.0 - frac);
 
     // Estimate local rate-of-change using finite differences. This costs
     // two additional noise samples (one pixel to the right, one up).
