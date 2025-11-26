@@ -7,10 +7,10 @@
     let scale = $state(3.0);
     let speed = $state(0.01);
 
-    // UI-controlled uniforms
     let color1 = $state('#ffffff');
     let color2 = $state('#000000');
     let sectionCount = $state(6);
+    let edgeSmoothing = $state(20);
 
     function hexToRgbNormalized(hex: string) {
         const h = hex.replace('#', '');
@@ -40,8 +40,7 @@
                 noise.setUniform('uColor1', hexToRgbNormalized(color1));
                 noise.setUniform('uColor2', hexToRgbNormalized(color2));
                 noise.setUniform('uSectionCount', sectionCount);
-                // 0.0 => automatic edge width (shader computes approx). Set >0 to override.
-                noise.setUniform('uEdgeSmoothing', 20);
+                noise.setUniform('uEdgeSmoothing', edgeSmoothing);
 
                 p5.shader(noise);
             }
@@ -78,6 +77,11 @@
         Sections
         <input type="range" bind:value={sectionCount} min="2" max="10" step="2" />
         <span>{sectionCount}</span>
+    </label>
+    <label>
+        Edge Smoothing
+        <input type="range" bind:value={edgeSmoothing} min="0" max="60" step="2" />
+        <span>{edgeSmoothing}</span>
     </label>
 </div>
 
