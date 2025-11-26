@@ -29,6 +29,7 @@
         };
 
         p5.setup = () => {
+            p5.setAttributes({ antialias: true });
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
         };
 
@@ -46,6 +47,7 @@
             }
             p5.noStroke();
             p5.plane(p5.width, p5.height);
+            // p5.triangle(0,-300,300,100,-300,100);
         };
 
         p5.windowResized = () => {
