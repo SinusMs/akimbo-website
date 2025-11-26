@@ -4,6 +4,10 @@ uniform float uTime;
 uniform vec2 uResolution;
 uniform float uScale;
 
+uniform vec3 uColor1;
+uniform vec3 uColor2;
+uniform float uSectionCount;
+
 varying vec2 vTexCoord;
 
 // Simplex 3D Noise
@@ -88,6 +92,11 @@ void main() {
     vec2 scaled = vec2(vTexCoord.x * aspect, vTexCoord.y ) * uScale;
 
     float n = normalizedSnoise(vec3(scaled, uTime));
-    gl_FragColor = vec4(vec3(n), 1.0);
+
+    float sectionIndex = floor(n * uSectionCount);
+    sectionIndex = min(sectionIndex, uSectionCount - 1.0);
+    float parity = mod(sectionIndex, 2.0);
+
+    gl_FragColor = vec4(parity < 0.5 ? uColor1 : uColor2, 1.0);
 }
 

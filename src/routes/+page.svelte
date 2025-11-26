@@ -4,8 +4,22 @@
 
     const MILIS_TO_SECONDS = 0.001;
 
-    let scale: number = 1.0;
-    let speed: number = 0.1;
+    let scale = $state(1.0);
+    let speed = $state(0.01);
+
+    // UI-controlled uniforms
+    let color1 = $state('#ffffff');
+    let color2 = $state('#000000');
+    let sectionCount = $state(6);
+
+    function hexToRgbNormalized(hex: string) {
+        const h = hex.replace('#', '');
+        const bigint = parseInt(h, 16);
+        const r = ((bigint >> 16) & 255) / 255;
+        const g = ((bigint >> 8) & 255) / 255;
+        const b = (bigint & 255) / 255;
+        return [r, g, b];
+    }
 
     const sketch: Sketch = (p5) => {
         let noise: Shader;
@@ -23,6 +37,9 @@
                 noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
                 noise.setUniform('uResolution', [p5.width, p5.height]);
                 noise.setUniform('uScale', scale);
+                noise.setUniform('uColor1', hexToRgbNormalized(color1));
+                noise.setUniform('uColor2', hexToRgbNormalized(color2));
+                noise.setUniform('uSectionCount', sectionCount);
 
                 p5.shader(noise);
             }
@@ -46,6 +63,19 @@
         Speed
         <input type="range" bind:value={speed} min="0.01" max="0.5" step="0.01" />
         <span>{speed.toFixed(2)}</span>
+    </label>
+    <label>
+        Color 1
+        <input type="color" bind:value={color1} />
+    </label>
+    <label>
+        Color 2
+        <input type="color" bind:value={color2} />
+    </label>
+    <label>
+        Sections
+        <input type="range" bind:value={sectionCount} min="2" max="10" step="2" />
+        <span>{sectionCount}</span>
     </label>
 </div>
 
