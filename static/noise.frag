@@ -6,11 +6,11 @@
 
 precision highp float;
 
-// Time (seconds) used to animate the noise (z coordinate)
+// Time used to animate the noise
 uniform float uTime;
-// Canvas resolution in pixels (x = width, y = height)
+// Canvas resolution in pixels
 uniform vec2 uResolution;
-// Scale multiplier for the noise frequency (larger => more zoomed-in)
+// Scale multiplier for the noise frequency
 uniform float uScale;
 
 // Two alternating band colors (RGB)
@@ -20,9 +20,6 @@ uniform vec3 uColor2;
 uniform float uSectionCount;
 // Multiplier controlling edge smoothing strength (higher => wider smoothing)
 uniform float uEdgeSmoothing;
-
-// Interpolated texture coordinates from the vertex shader
-varying vec2 vTexCoord;
 
 // Simplex 3D Noise
 // by Ian McEwan, Stefan Gustavson (https://github.com/stegu/webgl-noise)
@@ -103,9 +100,12 @@ float normalizedSnoise(vec3 v) {
 }
 
 void main() {
-    // Compute aspect-corrected coordinates and apply scale
+    // Use screen-space coordinates for sampling so the noise
+    // maps directly to the framebuffer rather than to supplied
+    // texture coordinates.
+    vec2 uv = gl_FragCoord.xy / uResolution;
     float aspect = uResolution.x / uResolution.y;
-    vec2 scaled = vec2(vTexCoord.x * aspect, vTexCoord.y) * uScale;
+    vec2 scaled = vec2(uv.x * aspect, uv.y) * uScale;
 
     // Sample noise at the current fragment (z = time for animation)
     float n = normalizedSnoise(vec3(scaled, uTime));
@@ -121,16 +121,18 @@ void main() {
     // Estimate local rate-of-change using finite differences. This costs
     // two additional noise samples (one pixel to the right, one up).
     // The pixel delta is computed in UV space from the resolution.
+    // pixel delta in UV/screen-space units
     vec2 pixel = vec2(1.0 / uResolution.x, 1.0 / uResolution.y);
-    vec2 scaled_right = vec2((vTexCoord.x + pixel.x) * aspect, vTexCoord.y) * uScale;
-    vec2 scaled_up = vec2(vTexCoord.x * aspect, (vTexCoord.y + pixel.y)) * uScale;
+    // neighbors in screen-space (one pixel to the right / one pixel up)
+    vec2 scaledRight = vec2((uv.x + pixel.x) * aspect, uv.y) * uScale;
+    vec2 scaledUp = vec2(uv.x * aspect, (uv.y + pixel.y)) * uScale;
 
     // Neighboring noise values used to approximate derivatives
-    float n_right = normalizedSnoise(vec3(scaled_right, uTime));
-    float n_up = normalizedSnoise(vec3(scaled_up, uTime));
+    float nRight = normalizedSnoise(vec3(scaledRight, uTime));
+    float nUp = normalizedSnoise(vec3(scaledUp, uTime));
     // Absolute differences (simple finite-difference magnitude estimate)
-    float dn_dx = abs(n_right - n);
-    float dn_dy = abs(n_up - n);
+    float dn_dx = abs(nRight - n);
+    float dn_dy = abs(nUp - n);
     // Current metric: average magnitude of change in x and y
     float change = 0.5 * (dn_dx + dn_dy);
 
