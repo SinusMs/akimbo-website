@@ -98,6 +98,8 @@ void main() {
     float idx = min(floor(x), uSectionCount - 1.0);
     float frac = x - idx;
 
+    float dist = min(frac, 1.0 - frac);
+
     // estimate local rate of change by finite differences (cost: 2 extra noise samples)
     // sample one pixel to the right and one pixel up in UV space
     vec2 pixel = vec2(1.0 / uResolution.x, 1.0 / uResolution.y);
@@ -114,9 +116,10 @@ void main() {
     float t = smoothstep(0.0, w, frac);
 
     float parity = mod(idx, 2.0);
-    vec3 evenBand = mix(uColor1, uColor2, t);
-    vec3 oddBand  = mix(uColor2, uColor1, t);
-    vec3 color = mix(evenBand, oddBand, parity);
+    bool idxEven = parity < 0.5;
+    vec3 baseBand = idxEven ? uColor1 : uColor2;
+    vec3 neighborBand = idxEven ? uColor2 : uColor1;
+    vec3 color = mix(baseBand, neighborBand, t);
 
     gl_FragColor = vec4(color, 1.0);
 }
