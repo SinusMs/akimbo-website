@@ -146,11 +146,11 @@ void main() {
     // Choose base and neighbor band colors based on parity of index
     float parity = mod(idx, 2.0);
     bool idxEven = parity < 0.5;
-    vec3 baseBand = idxEven ? uColor1 : uColor2;
-    vec3 neighborBand = idxEven ? uColor2 : uColor1;
-    vec3 color = mix(baseBand, neighborBand, t);
+    vec4 baseBand = idxEven ? vec4(uColor1, 1.0) : vec4(uColor2, 0.0);
+    vec4 neighborBand = idxEven ? vec4(uColor2, 0.0) : vec4(uColor1, 1.0);
+    vec4 color = mix(baseBand, neighborBand, t);
 
     // Output final color (opaque)
-    gl_FragColor = vec4(color, 1.0);
+    gl_FragColor = color;
 }
 

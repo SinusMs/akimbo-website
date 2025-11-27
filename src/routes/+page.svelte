@@ -33,7 +33,14 @@
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
         };
 
+        p5.keyPressed = () => {
+            if (p5.key === 's' || p5.key === 'S') {
+                p5.saveCanvas('noise', 'png');
+            }
+        };
+
         p5.draw = () => {
+            p5.clear(1,0,0,0)
             if (noise) {
                 noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
                 noise.setUniform('uResolution', [p5.width, p5.height]);
