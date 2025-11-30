@@ -16,6 +16,7 @@
     let maxDiameterHorizontal = $state(0.9);
     let maxDiameterVertical = $state(0.9);
     let triangleRadius: number;
+    let rotation: number = $state(1.35);
     let cx: number, cy: number;
     let trianglePoints: { x: number; y: number }[];
     let cornerRadius: number = $state(0.04);
@@ -51,6 +52,7 @@
         p5.setup = () => {
             p5.setAttributes({ antialias: true });
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
+            p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
         };
 
@@ -69,6 +71,7 @@
                 p5.shader(noise);
             }
             p5.noStroke();
+            p5.rotate(rotation)
             var rad = cornerRadius * triangleRadius;
 
             p5.beginShape();
@@ -143,6 +146,11 @@
         Diameter Vertical
         <input type="range" bind:value={maxDiameterVertical} min="0" max="1" step="0.01" />
         <span>{maxDiameterVertical}</span>
+    </label>
+    <label>
+        Rotation
+        <input type="range" bind:value={rotation} min="0" max="3.1415" step="0.01" />
+        <span>{rotation}</span>
     </label>
 </div>
 {/if}
