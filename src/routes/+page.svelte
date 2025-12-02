@@ -54,7 +54,7 @@
         }
 
         p5.preload = () => {
-            noise = p5.loadShader('noise.vert', 'noise.frag');
+            noise = p5.loadShader('noise.vert', window.devicePixelRatio <= 2 ? 'noise.frag' : 'noise_noAA.frag');
         };
 
         p5.setup = () => {
@@ -114,6 +114,7 @@
 
 {#if showControls}
 <div class="controls">
+    <span>DPR: {window.devicePixelRatio}</span>
     <label>
         Scale
         <input type="range" bind:value={scale} min="1" max="10" step="0.1" />
