@@ -8,11 +8,11 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			// Emit a SPA fallback so dynamic routes (e.g. /blog/[slug])
-			// are handled client-side instead of causing a static-adapt error.
 			pages: 'build',
 			assets: 'build',
-			fallback: 'index.html'
+			fallback: undefined,
+			precompress: false,
+			strict: true
 		})
     }
 };
