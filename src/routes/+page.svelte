@@ -3,6 +3,7 @@
     import P5, { type Sketch } from "p5-svelte";
 
     const MILIS_TO_SECONDS = 0.001;
+    const dpr = (typeof window !== 'undefined') ? (window.devicePixelRatio || 1) : 1;
 
     let showControls = $state(false);
     
@@ -54,7 +55,7 @@
         }
 
         p5.preload = () => {
-            noise = p5.loadShader('noise.vert', window.devicePixelRatio <= 2 ? 'noise.frag' : 'noise_noAA.frag');
+            noise = p5.loadShader('noise.vert', dpr <= 2 ? 'noise.frag' : 'noise_noAA.frag');
         };
 
         p5.setup = () => {
@@ -70,7 +71,7 @@
             if (noise) {
                 noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
                 noise.setUniform('uResolution', [p5.width, p5.height]);
-                noise.setUniform('uScale', scale);
+                noise.setUniform('uScale', scale / dpr);
                 noise.setUniform('uColor1', hexToRgbNormalized(color1));
                 noise.setUniform('uColor2', hexToRgbNormalized(color2));
                 noise.setUniform('uSectionCount', sectionCount);
