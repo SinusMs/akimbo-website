@@ -4,7 +4,7 @@
 
     const MILIS_TO_SECONDS = 0.001;
 
-    let showControls = $state(true);
+    let showControls = $state(false);
     
     let scale = $state(3.0);
     let speed = $state(0.01);
@@ -12,14 +12,20 @@
     let color2 = $state('#9EB18B');
     let sectionCount = $state(6);
     let edgeSmoothing = $state(20);
-
-    let maxDiameterHorizontal = $state(0.9);
-    let maxDiameterVertical = $state(0.9);
-    let triangleRadius: number;
-    let rotation: number = $state(1.35);
-    let cx: number, cy: number;
-    let trianglePoints: { x: number; y: number }[];
     let cornerRadius: number = $state(0.04);
+    let maxDiameterHorizontal = $state(0.75);
+    let maxDiameterVertical = $state(0.9);
+    let rotation: number = $state(1.35);
+    let nameFontScale = $state(0.63);
+    let nameVerticalOffset = $state(-0.21);
+    let subtitleFontScale = $state(0.18);
+    let subtitleVerticalOffset = $state(0.17);
+    let normalizedTriangleCenterX: number = $state(0.47);
+    let normalizedTriangleCenterY: number = $state(0.47);
+
+    let triangleRadius = $state(0);
+    let triangleCenterX: number, triangleCenterY: number;
+    let trianglePoints: { x: number; y: number }[];
 
     function hexToRgbNormalized(hex: string) {
         const h = hex.replace('#', '');
@@ -30,20 +36,22 @@
         return [r, g, b];
     }
 
-    function updateTrianglePoints() {
-        triangleRadius = Math.min(window.innerWidth * maxDiameterHorizontal, window.innerHeight * maxDiameterVertical) / 2;
-        cx = 0;
-        cy = 0;
-        trianglePoints = [];
-        for (var i = 0; i < 3; i++) {
-            var x = cx + triangleRadius * Math.cos(i * Math.PI * 2 / 3.0 - Math.PI / 2);
-            var y = cy + triangleRadius * Math.sin(i * Math.PI * 2 / 3.0 - Math.PI / 2);
-            trianglePoints[i] = { x, y };
-        }
-    }
-
     const sketch: Sketch = (p5) => {
         let noise: Shader;
+
+        function updateTrianglePoints() {
+            const w = p5.width * maxDiameterHorizontal;
+            const h = p5.height * maxDiameterVertical;
+            triangleRadius = Math.min(w, h) / 2;
+            trianglePoints = [];
+            triangleCenterX = p5.lerp(-p5.width / 2, p5.width / 2, normalizedTriangleCenterX);
+            triangleCenterY = p5.lerp(-p5.width / 2, p5.width / 2, normalizedTriangleCenterY);
+            for (var i = 0; i < 3; i++) {
+                var x = triangleCenterX + triangleRadius * Math.cos(i * Math.PI * 2 / 3.0 - Math.PI / 2);
+                var y = triangleCenterY + triangleRadius * Math.sin(i * Math.PI * 2 / 3.0 - Math.PI / 2);
+                trianglePoints[i] = { x, y };
+            }
+        }
 
         p5.preload = () => {
             noise = p5.loadShader('noise.vert', 'noise.frag');
@@ -71,13 +79,15 @@
                 p5.shader(noise);
             }
             p5.noStroke();
-            p5.rotate(rotation)
             var rad = cornerRadius * triangleRadius;
+
+            p5.translate(triangleCenterX, triangleCenterY);
+            p5.rotate(rotation);
 
             p5.beginShape();
             for (var i = 0; i < 3; i++) {
-                var px = p5.map(cornerRadius, 0, 1, trianglePoints[i].x, cx);
-                var py = p5.map(cornerRadius, 0, 1, trianglePoints[i].y, cy);
+                var px = p5.map(cornerRadius, 0, 1, trianglePoints[i].x - triangleCenterX, 0);
+                var py = p5.map(cornerRadius, 0, 1, trianglePoints[i].y - triangleCenterY, 0);
 
                 var ang1 = (i + 1) * p5.TWO_PI / 3.0 + p5.HALF_PI;
                 var ang2 = (i + 2) * p5.TWO_PI / 3.0 + p5.HALF_PI;
@@ -99,7 +109,7 @@
 </script>
 
 <button class="controls-toggle" onclick={() => showControls = !showControls} aria-label="Toggle controls">
-    {showControls ? 'Hide' : 'Show'}
+    Debug Controls
 </button>
 
 {#if showControls}
@@ -152,8 +162,46 @@
         <input type="range" bind:value={rotation} min="0" max="3.1415" step="0.01" />
         <span>{rotation}</span>
     </label>
+    <label>
+        Name Font Scale
+        <input type="range" bind:value={nameFontScale} min="0" max="1" step="0.01" />
+        <span>{nameFontScale}</span>
+    </label>
+    <label>
+        Name Vertical Position
+        <input type="range" bind:value={nameVerticalOffset} min="-1" max="1" step="0.01" />
+        <span>{nameVerticalOffset}</span>
+    </label>
+    <label>
+        Subtitle Font Scale
+        <input type="range" bind:value={subtitleFontScale} min="0" max="1" step="0.01" />
+        <span>{subtitleFontScale}</span>
+    </label>
+    <label>
+        Subtitle Vertical Position
+        <input type="range" bind:value={subtitleVerticalOffset} min="-1" max="1" step="0.01" />
+        <span>{subtitleVerticalOffset}</span>
+    </label>
+    <label>
+        Triangle Center X
+        <input type="range" bind:value={normalizedTriangleCenterX} min="0" max="1" step="0.01" />
+        <span>{normalizedTriangleCenterX}</span>
+    </label>
+    <label>
+        Triangle Center Y
+        <input type="range" bind:value={normalizedTriangleCenterY} min="0" max="1" step="0.01" />
+        <span>{normalizedTriangleCenterY}</span>
+    </label>
 </div>
 {/if}
+
+<span class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
+    Akimbo
+</span>
+
+<span class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
+    CREATIVE ENGINEERING
+</span>
 
 <div class="sketch">
     <P5 {sketch} />
@@ -198,7 +246,7 @@
     }
 
     input[type="range"] {
-        width: 160px;
+        width: 260px;
     }
 
     /* small toggle button in the top-right corner */
@@ -219,5 +267,30 @@
 
     .controls-toggle:active {
         transform: translateY(1px);
+    }
+
+    .logo-name {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 10; 
+        pointer-events: none;
+        font-family: 'Gantari';
+        font-weight: 800;
+        color: #0E1511;
+    }
+
+    .logo-subtitle {
+        position: fixed;
+        left: 50%;
+        top: 50%;
+        z-index: 10; 
+        pointer-events: none;
+        font-family: 'Gantari';
+        font-weight: 340;
+        color: #0E1511;
+        text-wrap: nowrap;
+        letter-spacing: 0.4px;
+        word-spacing: 1px;
     }
 </style>
