@@ -247,6 +247,9 @@
 </div>
 {/if}
 
+<!-- element displayed as loading Screen for P5 sketches -->
+<div id="p5_loading"></div>
+
 <span class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
     Akimbo
 </span>
