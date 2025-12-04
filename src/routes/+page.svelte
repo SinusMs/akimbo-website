@@ -1,6 +1,9 @@
 <script lang="ts">
     import type { Shader } from "p5";
     import P5, { type Sketch } from "p5-svelte";
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
 
     const MILIS_TO_SECONDS = 0.001;
     const dpr = (typeof window !== 'undefined') ? (window.devicePixelRatio || 1) : 1;
