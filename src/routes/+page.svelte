@@ -101,6 +101,15 @@
                 delay: 2.3,
                 stagger: 0.05,
             });
+
+            gsap.set(".disclaimer", { opacity: 1 });
+            gsap.from(".disclaimer", {
+                yPercent: 150,
+                opacity: 1,
+                duration: 1,
+                ease: "back.out",
+                delay: 3,
+            });
         }
 
         p5.preload = () => {
@@ -250,6 +259,13 @@
 <!-- element displayed as loading Screen for P5 sketches -->
 <div id="p5_loading"></div>
 
+<div class="disclaimer">
+    <p>
+        Diese Website befindet sich derzeit im Aufbau. <br>
+        Schau bald wieder vorbei!<br>
+    </p>
+</div>
+
 <span class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
     Akimbo
 </span>
@@ -349,5 +365,25 @@
         letter-spacing: 0.4px;
         word-spacing: 1px;
         line-height: 80%;
+    }
+
+    .disclaimer {
+        position: fixed;
+        bottom: 1rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: inline-block;
+        white-space: nowrap;
+        z-index: 10;
+        background: #C7968F;
+        padding: 0.4rem 0.7rem;
+        color: #532D33;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #333;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        font-family: 'Gantari';
+        opacity: 0;
     }
 </style>
