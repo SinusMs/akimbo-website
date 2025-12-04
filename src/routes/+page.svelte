@@ -168,9 +168,9 @@
     };
 </script>
 
-<button class="controls-toggle" onclick={() => showControls = !showControls} aria-label="Toggle controls">
+<!-- <button class="controls-toggle" onclick={() => showControls = !showControls} aria-label="Toggle controls">
     Debug Controls
-</button>
+</button> -->
 
 {#if showControls}
 <div class="controls">
