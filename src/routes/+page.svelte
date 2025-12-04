@@ -31,6 +31,18 @@
     let triangleCenterX: number, triangleCenterY: number;
     let trianglePoints: { x: number; y: number }[];
 
+    ScrollTrigger.create({
+        trigger: '.below-fold-box',
+        start: 'bottom bottom',
+        end: 'bottom center',
+        onUpdate: (self) => {
+            normalizedTriangleCenterY = self.progress
+            console.log(self.progress);
+        },
+        scrub: 1,
+        markers: true
+    });
+
     function hexToRgbNormalized(hex: string) {
         const h = hex.replace('#', '');
         const bigint = parseInt(h, 16);
@@ -70,7 +82,7 @@
 
         p5.draw = () => {
             p5.clear();
-            // updateTrianglePoints();
+            updateTrianglePoints();
             if (noise) {
                 noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
                 noise.setUniform('uResolution', [p5.width, p5.height]);
@@ -212,6 +224,9 @@
     <P5 {sketch} />
 </div>
 
+<!-- white box positioned just below the bottom edge of the viewport -->
+<div class="below-fold-box" aria-hidden="true"></div>
+
 <style>
     :global(html, body) {
         height: 100%;
@@ -297,5 +312,20 @@
         text-wrap: nowrap;
         letter-spacing: 0.4px;
         word-spacing: 1px;
+    }
+
+    /* small white box placed just below the bottom edge of the viewport */
+    .below-fold-box {
+        position:relative;
+        left: 50%;
+        top: 100%; /* starts immediately below the viewport */
+        transform: translate(-50%, 8px); /* small gap below the fold */
+        width: min(92%, 900px);
+        height: 80%;
+        background: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+        z-index: 40;
+        pointer-events: none;
     }
 </style>
