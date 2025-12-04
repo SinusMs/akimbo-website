@@ -260,10 +260,9 @@
 <div id="p5_loading"></div>
 
 <div class="disclaimer">
-    <p>
         Diese Website befindet sich derzeit im Aufbau. <br>
         Schau bald wieder vorbei!<br>
-    </p>
+        <div class="email">Kontakt: hel<!--shitfuck-->lo@<span>&#97;k</span>imbo.<span>contact-sales.</span>dev</div>
 </div>
 
 <span class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
@@ -385,5 +384,9 @@
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         font-family: 'Gantari';
         opacity: 0;
+    }
+
+    div.email > span:nth-child(2) {
+	    display: none;
     }
 </style>
