@@ -3,7 +3,8 @@
     import P5, { type Sketch } from "p5-svelte";
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
+    import { SplitText } from "gsap/SplitText";
+    gsap.registerPlugin(ScrollTrigger, SplitText);
 
     const MILIS_TO_SECONDS = 0.001;
     const dpr = (typeof window !== 'undefined') ? (window.devicePixelRatio || 1) : 1;
@@ -11,7 +12,7 @@
     let showControls = $state(false);
     
     let scale = $state(3.0);
-    let speed = $state(0.01);
+    let speed = $state(0.04);
     let color1 = $state('#588157');
     let color2 = $state('#9EB18B');
     let sectionCount = $state(6);
@@ -43,10 +44,15 @@
     const sketch: Sketch = (p5) => {
         let noise: Shader;
 
-        function updateTrianglePoints() {
-            const w = p5.width * maxDiameterHorizontal;
-            const h = p5.height * maxDiameterVertical;
-            triangleRadius = Math.min(w, h) / 2;
+        function updateTrianglePoints(forceRadius?: number) {
+            if (forceRadius == undefined) {
+                const w = p5.width * maxDiameterHorizontal;
+                const h = p5.height * maxDiameterVertical;
+                triangleRadius = Math.min(w, h) / 2;
+            }
+            else {
+                triangleRadius = forceRadius;
+            }
             trianglePoints = [];
             triangleCenterX = p5.lerp(-p5.width / 2, p5.width / 2, normalizedTriangleCenterX);
             triangleCenterY = p5.lerp(-p5.width / 2, p5.width / 2, normalizedTriangleCenterY);
@@ -55,6 +61,46 @@
                 var y = triangleCenterY + triangleRadius * Math.sin(i * Math.PI * 2 / 3.0 - Math.PI / 2);
                 trianglePoints[i] = { x, y };
             }
+        }
+
+        function startIntroAnimation() {
+            const targetTriangleRadius = triangleRadius;
+            triangleRadius = 0;
+            updateTrianglePoints(0);
+            const obj: any = { r: 0 };
+            gsap.to(obj, {
+                delay: 0.5,
+                r: targetTriangleRadius,
+                duration: 2,
+                ease: 'back.out',
+                onUpdate: () => {
+                    updateTrianglePoints(obj.r);
+                }
+            });
+            
+            let splitName: SplitText = SplitText.create(".logo-name", {
+                type: "words",
+                mask: "words"
+            });
+            gsap.from(splitName.words, {
+                yPercent: 100,
+                duration: 1.5,
+                ease: "expo.out",
+                delay: 2,
+                stagger: 0.05,
+            });
+
+            let splitSubtitle: SplitText = SplitText.create(".logo-subtitle", {
+                type: "words",
+                mask: "words"
+            });
+            gsap.from(splitSubtitle.words, {
+                yPercent: -100,
+                duration: 1.2,
+                ease: "expo.out",
+                delay: 2.3,
+                stagger: 0.05,
+            });
         }
 
         p5.preload = () => {
@@ -66,6 +112,7 @@
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
             p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
+            startIntroAnimation();
         };
 
         p5.draw = () => {
@@ -283,6 +330,7 @@
         font-family: 'Gantari';
         font-weight: 800;
         color: #0E1511;
+        line-height: 80%;
     }
 
     .logo-subtitle {
@@ -297,5 +345,6 @@
         text-wrap: nowrap;
         letter-spacing: 0.4px;
         word-spacing: 1px;
+        line-height: 80%;
     }
 </style>
