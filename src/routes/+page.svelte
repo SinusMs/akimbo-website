@@ -10,6 +10,7 @@
     const dpr = (typeof window !== 'undefined') ? (window.devicePixelRatio || 1) : 1;
 
     let showControls = $state(false);
+    let fps = $state(0);
     
     let scale = $state(3.0);
     let speed = $state(0.04);
@@ -151,6 +152,9 @@
             p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
             setupAnimations();
+            setInterval(() => {
+                fps = p5.frameRate();
+            }, 200);
         };
 
         p5.draw = () => {
@@ -202,6 +206,7 @@
     Debug Controls
 </button>
 
+<span style="position: fixed; z-index: 100;">FPS: {fps.toFixed(0)}</span>
 {#if showControls}
 <div class="controls">
     <span>DPR: {window.devicePixelRatio}</span>
