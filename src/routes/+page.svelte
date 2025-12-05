@@ -31,6 +31,8 @@
     let triangleRadius = $state(0);
     let triangleCenterX: number, triangleCenterY: number;
     let trianglePoints: { x: number; y: number }[];
+    let sketchScale: number = 1;
+    let sketchScaleTarget: number = 3.5;
 
     function hexToRgbNormalized(hex: string) {
         const h = hex.replace('#', '');
@@ -63,7 +65,7 @@
             }
         }
 
-        function startIntroAnimation() {
+        function setupAnimations() {
             const targetTriangleRadius = triangleRadius;
             triangleRadius = 0;
             updateTrianglePoints(0);
@@ -78,7 +80,7 @@
                 }
             });
             
-            let splitName: SplitText = SplitText.create(".logo-name", {
+            let splitName: SplitText = SplitText.create("#logo-name", {
                 type: "words",
                 mask: "words"
             });
@@ -90,7 +92,7 @@
                 stagger: 0.05,
             });
 
-            let splitSubtitle: SplitText = SplitText.create(".logo-subtitle", {
+            let splitSubtitle: SplitText = SplitText.create("#logo-subtitle", {
                 type: "words",
                 mask: "words"
             });
@@ -101,6 +103,42 @@
                 delay: 2.3,
                 stagger: 0.05,
             });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top bottom",
+                    end: "top 60%",
+                    scrub: 1,
+                },
+            });
+            tl.addLabel("start");
+            tl.to("#logo-name", {
+                xPercent: -200,
+                ease: "power4.in",
+            }, "start");
+            tl.to("#logo-subtitle", {
+                xPercent: 200,
+                ease: "power4.in",
+            }, "start");
+            const triangleZoomParams: any = { s: sketchScale, c: cornerRadius };
+            tl.to(triangleZoomParams, {
+                s: sketchScaleTarget,
+                ease: "power4.in",
+                onUpdate() {
+                    sketchScale = triangleZoomParams.s;
+                },
+                onComplete() {
+                    sketchScale = 10;
+                }
+            }, "start");
+            tl.to(triangleZoomParams, {
+                c: 1,
+                ease: "power1.in",
+                onUpdate() {
+                    cornerRadius = triangleZoomParams.c;
+                }
+            }, "start");
         }
 
         p5.preload = () => {
@@ -112,7 +150,7 @@
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
             p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
-            startIntroAnimation();
+            setupAnimations();
         };
 
         p5.draw = () => {
@@ -134,6 +172,7 @@
 
             p5.translate(triangleCenterX, triangleCenterY);
             p5.rotate(rotation);
+            p5.scale(sketchScale);
 
             p5.beginShape();
             for (var i = 0; i < 3; i++) {
@@ -250,17 +289,21 @@
 <!-- element displayed as loading Screen for P5 sketches -->
 <div id="p5_loading"></div>
 
-<span class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
-    Akimbo
-</span>
+<div class="size-full">
+    <span id="logo-name" class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
+        Akimbo
+    </span>
 
-<span class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
-    CREATIVE ENGINEERING
-</span>
+    <span id="logo-subtitle" class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
+        CREATIVE ENGINEERING
+    </span>
+</div>
 
 <div class="sketch">
     <P5 {sketch} />
 </div>
+
+<div id="about" class="bg-pink-500 relative h-400 w-60 inset-auto">Wer das liest kann lesen.</div>
 
 <style>
     :global(html, body) {
