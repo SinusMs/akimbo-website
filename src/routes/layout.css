@@ -10,3 +10,18 @@
     font-style: normal;
     font-display: swap;
 }
+
+@theme {
+    --color-green-50: #D9DACD;
+    --color-green-100: #9EB18B;
+    --color-green-200: #588157;
+    --color-green-300: #3A5A40;
+    --color-green-400: #2F4637;
+    --color-green-450: #0E1511;
+    --color-red-50: #DACFCD;
+    --color-red-100: #C7968F;
+    --color-red-200: #924F4F;
+    --color-red-300: #743E42;
+    --color-red-400: #532D33;
+    --color-red-450: #140A0E;
+}

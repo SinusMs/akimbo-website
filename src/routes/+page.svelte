@@ -325,8 +325,29 @@
     <div class="sketch">
         <P5 {sketch} />
     </div>
+    <div class="w-full flex justify-center font-[Gantari] text-red-450">
+        <div class="flex flex-row items-center place-content-center gap-10 m-10 max-sm:m-5 max-w-7xl">
+            <img src="/marc.jpg" alt="Marc" class="rounded-xl w-full hidden lg:inline basis-2/5 shadow-2xl/50">
+            <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
+                <div class="flex flex-col place-content-center justify-center h-full gap-8">
+                    <h1 class="text-2xl sm:text-3xl font-bold">
+                        Webentwicklung und Software Engineering.<br>
+                        Mit Leidenschaft.<br>
+                        Aus Dresden.
+                        <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
+                    </h1>
+                    <img src="/marc.jpg" alt="Marc" class="rounded-xl w-full max-w-150 lg:hidden self-center">
+                    <div class="text-md md:text-2xl">
+                        Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering. 
+                        Angetrieben von meiner Faszination am Zusammenspiel von Gestaltung und Technologie 
+                        übernehme ich als Full Stack Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
+                        von Design über Front- und Backendprogrammierung bis Hosting und Maintenance.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="about" class="bg-pink-500 relative h-400 w-60 inset-auto">Wer das liest kann lesen.</div>
 </div>
 
 <style>
@@ -352,7 +373,7 @@
     .sketch {
         position: fixed;
         inset: 0;
-        z-index: 0;
+        z-index: -10;
         pointer-events: none;
     }
 
@@ -361,6 +382,7 @@
         position: absolute;
         inset: 0;
         height: 100vh;
+        width: 100%;
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
