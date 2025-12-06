@@ -168,6 +168,19 @@
         };
     };
     onMount(() => {
+        const a = document.getElementById('contact-mail');
+        const attr = a?.getAttribute('href');
+        if (a != null && attr != null){
+            a.setAttribute('href', attr
+                .replace('-', 'o@')
+                .replaceAll('-', 'ki')
+                .replace('contact', 'a')
+                .replace('/', 'o.dev')
+                .replace('to', 'mailto:hell')
+                .replace('adress', 'mb')
+            );
+        }
+
         const splitName = SplitText.create("#logo-name", { type: "words", mask: "words" });
         const splitSubtitle = SplitText.create("#logo-subtitle", { type: "words", mask: "words" });
 
@@ -325,7 +338,7 @@
     <div class="sketch">
         <P5 {sketch} />
     </div>
-    <div class="w-full flex justify-center font-[Gantari] text-red-450">
+    <div class="w-full flex flex-col items-center justify-center font-[Gantari] text-red-450">
         <div class="flex flex-row items-center place-content-center gap-10 m-10 max-sm:m-5 max-w-7xl">
             <img src="/marc.jpg" alt="Marc" class="rounded-xl w-full hidden lg:inline basis-2/5 shadow-2xl/50">
             <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
@@ -343,6 +356,23 @@
                         übernehme ich als Full Stack Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
                         von Design über Front- und Backendprogrammierung bis Hosting und Maintenance.
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row items-center place-content-center gap-10 m-10 max-sm:m-5 max-w-7xl bg-red-50 rounded-xl px-10 py-8 shadow-2xl/50">
+            <div class="flex flex-col place-content-center justify-center h-full gap-6">
+                <h1 class="text-2xl sm:text-3xl font-bold">
+                    Kontakt
+                    <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
+                </h1>
+                <a id="contact-mail" rel="nofollow, noindex" href="to-contact-adress/">
+                    <div class="email text-2xl font-semibold text-red-300">
+                        hel<!--shitfuck-->lo@<span>&#97;k</span>imbo.<span>contact-sales.</span>dev
+                    </div>
+                </a>
+                <div class="text-md md:text-2xl">
+                    Lass uns gemeinsam etwas großartiges erschaffen!
                 </div>
             </div>
         </div>
@@ -461,5 +491,9 @@
         letter-spacing: 0.4px;
         word-spacing: 1px;
         line-height: 80%;
+    }
+
+    div.email > span:nth-child(2) {
+        display: none;
     }
 </style>
