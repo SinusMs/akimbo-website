@@ -4,6 +4,7 @@
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     import { SplitText } from "gsap/SplitText";
+    import { onMount, onDestroy } from 'svelte';
     gsap.registerPlugin(ScrollTrigger, SplitText);
 
     const MILIS_TO_SECONDS = 0.001;
@@ -34,6 +35,8 @@
     let trianglePoints: { x: number; y: number }[];
     let sketchScale: number = 1;
     let sketchScaleTarget: number = 3.5;
+    let scroller: HTMLElement | null = null;
+    let scrollTl: any = null;
 
     function hexToRgbNormalized(hex: string) {
         const h = hex.replace('#', '');
@@ -104,43 +107,6 @@
                 delay: 2.3,
                 stagger: 0.05,
             });
-
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    scroller: "body",
-                    trigger: "#about",
-                    start: "top bottom",
-                    end: "top 60%",
-                    scrub: 1,
-                },
-            });
-            tl.addLabel("start");
-            tl.to("#logo-name", {
-                xPercent: -200,
-                ease: "power4.in",
-            }, "start");
-            tl.to("#logo-subtitle", {
-                xPercent: 200,
-                ease: "power4.in",
-            }, "start");
-            const triangleZoomParams: any = { s: sketchScale, c: cornerRadius };
-            tl.to(triangleZoomParams, {
-                s: sketchScaleTarget,
-                ease: "power4.in",
-                onUpdate() {
-                    sketchScale = triangleZoomParams.s;
-                },
-                onComplete() {
-                    sketchScale = 10;
-                }
-            }, "start");
-            tl.to(triangleZoomParams, {
-                c: 1,
-                ease: "power1.in",
-                onUpdate() {
-                    cornerRadius = triangleZoomParams.c;
-                }
-            }, "start");
         }
 
         p5.preload = () => {
@@ -201,6 +167,56 @@
             updateTrianglePoints();
         };
     };
+    onMount(() => {
+        const splitName = SplitText.create("#logo-name", { type: "words", mask: "words" });
+        const splitSubtitle = SplitText.create("#logo-subtitle", { type: "words", mask: "words" });
+
+        scrollTl = gsap.timeline({
+            scrollTrigger: {
+                scroller: scroller,
+                trigger: "#about",
+                start: "top bottom",
+                end: "top 60%",
+                scrub: 1,
+            },
+        });
+
+        scrollTl.addLabel("start");
+        scrollTl.to("#logo-name", {
+            xPercent: -200,
+            ease: "power4.in",
+        }, "start");
+        scrollTl.to("#logo-subtitle", {
+            xPercent: 200,
+            ease: "power4.in",
+        }, "start");
+
+        const triangleZoomParams: any = { s: sketchScale, c: cornerRadius };
+        scrollTl.to(triangleZoomParams, {
+            s: sketchScaleTarget,
+            ease: "power4.in",
+            onUpdate() {
+                sketchScale = triangleZoomParams.s;
+            },
+            onComplete() {
+                sketchScale = 10;
+            }
+        }, "start");
+        scrollTl.to(triangleZoomParams, {
+            c: 1,
+            ease: "power1.in",
+            onUpdate() {
+                cornerRadius = triangleZoomParams.c;
+            }
+        }, "start");
+
+        ScrollTrigger.refresh();
+    });
+
+    onDestroy(() => {
+        if (scrollTl) scrollTl.kill();
+        ScrollTrigger.getAll().forEach(t => t.kill());
+    });
 </script>
 
 <button class="controls-toggle" onclick={() => showControls = !showControls} aria-label="Toggle controls">
@@ -295,21 +311,23 @@
 <!-- element displayed as loading Screen for P5 sketches -->
 <div id="p5_loading"></div>
 
-<div class="size-full">
-    <span id="logo-name" class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
-        Akimbo
-    </span>
+<div bind:this={scroller} class="scroller">
+    <div class="size-full">
+        <span id="logo-name" class="logo-name" style="font-size: {triangleRadius * nameFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * nameVerticalOffset}px))">
+            Akimbo
+        </span>
 
-    <span id="logo-subtitle" class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
-        CREATIVE ENGINEERING
-    </span>
+        <span id="logo-subtitle" class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
+            CREATIVE ENGINEERING
+        </span>
+    </div>
+
+    <div class="sketch">
+        <P5 {sketch} />
+    </div>
+
+    <div id="about" class="bg-pink-500 relative h-400 w-60 inset-auto">Wer das liest kann lesen.</div>
 </div>
-
-<div class="sketch">
-    <P5 {sketch} />
-</div>
-
-<div id="about" class="bg-pink-500 relative h-400 w-60 inset-auto">Wer das liest kann lesen.</div>
 
 <style>
     :global(html, body) {
@@ -336,6 +354,16 @@
         inset: 0;
         z-index: 0;
         pointer-events: none;
+    }
+
+    /* inner scroller used on mobile when body is fixed */
+    .scroller {
+        position: absolute;
+        inset: 0;
+        height: 100vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
     }
 
     /* overlay controls */
