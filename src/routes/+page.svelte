@@ -121,7 +121,7 @@
             setupAnimations();
             setInterval(() => {
                 fps = p5.frameRate();
-            }, 200);
+            }, 50);
         };
 
         p5.draw = () => {
@@ -152,7 +152,7 @@
 
                 var ang1 = (i + 1) * p5.TWO_PI / 3.0 + p5.HALF_PI;
                 var ang2 = (i + 2) * p5.TWO_PI / 3.0 + p5.HALF_PI;
-                var dang = (ang2 - ang1) / 60.0;
+                var dang = (ang2 - ang1) / 20.0;
                 for (var t = ang1; t <= ang2; t += dang) {
                     var ax = px + rad * p5.cos(t);
                     var ay = py + rad * p5.sin(t);
