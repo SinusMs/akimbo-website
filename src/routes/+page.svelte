@@ -110,7 +110,7 @@
         }
 
         p5.preload = () => {
-            noise = p5.loadShader('noise.vert', dpr <= 2 ? 'noise.frag' : 'noise_noAA.frag');
+            noise = p5.loadShader('noise.vert', dpr >= 2 ? 'noise_noAA.frag' : 'noise.frag');
         };
 
         p5.setup = () => {
