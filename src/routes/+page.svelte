@@ -107,6 +107,7 @@
 
             const tl = gsap.timeline({
                 scrollTrigger: {
+                    scroller: "body",
                     trigger: "#about",
                     start: "top bottom",
                     end: "top 60%",
@@ -317,11 +318,24 @@
         background-color: #D9DACD;
     }
 
+    :global(html) {
+        overflow: hidden;
+        width: 100%;
+    }
+    :global(body) {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+    }
+
     /* make the P5 container cover the full viewport */
     .sketch {
         position: fixed;
         inset: 0;
         z-index: 0;
+        pointer-events: none;
     }
 
     /* overlay controls */
