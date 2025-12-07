@@ -107,6 +107,20 @@
                 delay: 2.3,
                 stagger: 0.05,
             });
+
+            gsap.set("#scroll-instruction", { opacity: 1 });
+            gsap.from("#scroll-instruction", {
+                yPercent: 110,
+                duration: 0.3,
+                ease: "back.out",
+                delay: 4,
+            });
+            gsap.to("#scroll-instruction", {
+                yPercent: 110,
+                duration: 0.3,
+                ease: "back.in",
+                delay: 14,
+            });
         }
 
         p5.preload = () => {
@@ -333,6 +347,7 @@
         <span id="logo-subtitle" class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
             CREATIVE ENGINEERING
         </span>
+        <span id="scroll-instruction" class="fixed w-full text-center font-[Gantari] bottom-0 mb-2 opacity-0 -z-20 text-xl">Scroll, um mehr zu sehen!</span>
     </div>
 
     <div class="sketch">
