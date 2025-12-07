@@ -266,7 +266,7 @@
     </div>
     <div class="w-full flex flex-col gap-10 mb-10 items-center justify-center font-[Gantari] text-red-450 z-50">
         <div class="flex flex-row items-end gap-10 mx-10 max-sm:mx-5 max-w-7xl">
-            <img id="about-image" src="/marc.jpg" alt="Marc" class="rounded-xl w-25 hidden lg:inline basis-2/5 shadow-2xl/50">
+            <img id="about-image" src="marc.jpg" alt="Marc" class="rounded-xl w-25 hidden lg:inline basis-2/5 shadow-2xl/50">
             <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
                 <div class="flex flex-col place-content-center justify-center h-full gap-8">
                     <h1 class="text-2xl sm:text-3xl font-bold">
@@ -275,7 +275,7 @@
                         Aus Dresden.
                         <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                     </h1>
-                    <img src="/marc.jpg" alt="Marc" class="rounded-xl w-full max-w-150 lg:hidden self-center">
+                    <img src="marc.jpg" alt="Marc" class="rounded-xl w-full max-w-150 lg:hidden self-center">
                     <div class="text-md md:text-2xl">
                         Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering. 
                         Angetrieben von meiner Faszination am Zusammenspiel von Gestaltung und Technologie 
@@ -300,25 +300,25 @@
                     Backend
                 </h2>
                 <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
-                    <a href="https://rubyonrails.org" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/rails.svg" alt="Ruby on Rails"></a>
-                    <a href="https://laravel.com" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/laravel.svg" alt="Laravel"></a>
+                    <a href="https://rubyonrails.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/rails.svg" alt="Ruby on Rails"></a>
+                    <a href="https://laravel.com" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/laravel.svg" alt="Laravel"></a>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Frontend
                 </h2>
                 <div class="w-full flex flex-row flex-wrap place-content-evenly items-center gap-12 px-6">
-                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="/logos/svelte.svg" alt="Svelte" class="max-h-[120px]"></a>
-                    <a href="https://getbootstrap.com" class="h-15 sm:h-20 flex justify-center"><img src="/logos/bootstrap.svg" alt="Bootstrap" class="max-h-[120px]"></a>
-                    <a href="https://tailwindcss.com" class="h-10 sm:h-20 flex justify-center"><img src="/logos/tailwind.svg" alt="Tailwind" class="max-h-[120px]"></a>
-                    <a href="https://p5js.org" class="h-15 sm:h-20 flex justify-center"><img src="/logos/p5.png" alt="p5.js" class="max-h-[120px]"></a>
-                    <a href="https://gsap.com" class="h-15 sm:h-20 flex justify-center"><img src="/logos/gsap.svg" alt="GSAP" class="max-h-[120px] bg-[#313131] p-3 rounded-lg"></a>
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="logos/svelte.svg" alt="Svelte" class="max-h-[120px]"></a>
+                    <a href="https://getbootstrap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/bootstrap.svg" alt="Bootstrap" class="max-h-[120px]"></a>
+                    <a href="https://tailwindcss.com" class="h-10 sm:h-20 flex justify-center"><img src="logos/tailwind.svg" alt="Tailwind" class="max-h-[120px]"></a>
+                    <a href="https://p5js.org" class="h-15 sm:h-20 flex justify-center"><img src="logos/p5.png" alt="p5.js" class="max-h-[120px]"></a>
+                    <a href="https://gsap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/gsap.svg" alt="GSAP" class="max-h-[120px] bg-[#313131] p-3 rounded-lg"></a>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Game Engines
                 </h2>
                 <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-12 px-6">
-                    <a href="https://godotengine.org" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/godot.svg" alt="Godot"></a>
-                    <a href="https://unity.com" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/unity.png" alt="Unity"></a>
+                    <a href="https://godotengine.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/godot.svg" alt="Godot"></a>
+                    <a href="https://unity.com" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/unity.png" alt="Unity"></a>
                 </div>
             </div>
         </div>
