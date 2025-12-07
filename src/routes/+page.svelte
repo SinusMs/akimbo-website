@@ -127,7 +127,8 @@
         };
 
         p5.setup = () => {
-            p5.setAttributes({ antialias: true });
+            p5.setAttributes({ antialias: dpr < 2 });
+            p5.pixelDensity(p5.min(dpr, 2));
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
             p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
