@@ -354,7 +354,7 @@
     </div>
     <div class="w-full flex flex-col gap-10 mb-10 items-center justify-center font-[Gantari] text-red-450 z-50">
         <div class="flex flex-row items-end gap-10 mx-10 max-sm:mx-5 max-w-7xl">
-            <img id="about-image" src="/marc.jpg" alt="Marc" class="rounded-xl w-full hidden lg:inline basis-2/5 shadow-2xl/50">
+            <img id="about-image" src="/marc.jpg" alt="Marc" class="rounded-xl w-25 hidden lg:inline basis-2/5 shadow-2xl/50">
             <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
                 <div class="flex flex-col place-content-center justify-center h-full gap-8">
                     <h1 class="text-2xl sm:text-3xl font-bold">
