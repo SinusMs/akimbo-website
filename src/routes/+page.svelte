@@ -258,7 +258,7 @@
         <span id="logo-subtitle" class="logo-subtitle" style="font-size: {triangleRadius * subtitleFontScale}px; transform: translate(-50%, calc(-50% + {triangleRadius * subtitleVerticalOffset}px))">
             CREATIVE ENGINEERING
         </span>
-        <span id="scroll-instruction" class="fixed w-full text-center font-[Gantari] bottom-0 mb-2 opacity-0 -z-20 text-xl">Scroll, um mehr zu sehen!</span>
+        <span id="scroll-instruction" class="fixed w-full text-center font-[Gantari] bottom-0 mb-2 opacity-0 -z-20 text-xl">Scrolle, um mehr zu sehen!</span>
     </div>
 
     <div class="sketch">
@@ -279,8 +279,8 @@
                     <div class="text-md md:text-2xl">
                         Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering. 
                         Angetrieben von meiner Faszination am Zusammenspiel von Gestaltung und Technologie 
-                        übernehme ich als Full Stack Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
-                        von Design über Front- und Backendprogrammierung bis Hosting und Maintenance.
+                        übernehme ich als Full-Stack-Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
+                        von Design über Front- und Backend-Programmierung bis Hosting und Maintenance.
                     </div>
                 </div>
             </div>
@@ -293,8 +293,8 @@
                     <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                 </h1>
                 <div class="text-md md:text-2xl">
-                    Mit Erfahrung in diversen Sprachen, Librarys und Frameworks finde ich den idealen Tech-stack für dein Projekt. 
-                    Neben den hier aufgeführten Frameworks und Librarys setze ich bei Bedarf auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
+                    Mit Erfahrung in diversen Sprachen, Libraries und Frameworks finde ich den idealen Tech-Stack für dein Projekt. 
+                    Neben den hier aufgeführten Frameworks und Libraries setze ich bei Bedarf auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-4 lg:text-center">
                     Backend
@@ -335,7 +335,7 @@
                     </div>
                 </a>
                 <div class="text-md md:text-2xl">
-                    Lass uns gemeinsam etwas großartiges erschaffen!
+                    Lass uns gemeinsam etwas Großartiges erschaffen!
                 </div>
             </div>
         </div>
