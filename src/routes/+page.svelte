@@ -73,54 +73,53 @@
             const targetTriangleRadius = triangleRadius;
             triangleRadius = 0;
             updateTrianglePoints(0);
+            let timeline = gsap.timeline();
+            
             const obj: any = { r: 0 };
-            gsap.to(obj, {
-                delay: 0.5,
+            timeline.to(obj, {
                 r: targetTriangleRadius,
-                duration: 2,
-                ease: 'back.out',
+                duration: 1,
+                ease: 'power2.out',
                 onUpdate: () => {
                     updateTrianglePoints(obj.r);
                 }
-            });
+            }, 0.5);
+            timeline.addLabel("endTriangleGrow");
             
             let splitName: SplitText = SplitText.create("#logo-name", {
                 type: "words",
-                mask: "words"
+                mask: "lines"
             });
-            gsap.from(splitName.words, {
+            timeline.from(splitName.words, {
                 yPercent: 100,
-                duration: 1.5,
-                ease: "expo.out",
-                delay: 2,
+                duration: 0.7,
+                ease: "power2.out",
                 stagger: 0.05,
-            });
-
+            }, "endTriangleGrow-=0.5");
+            
             let splitSubtitle: SplitText = SplitText.create("#logo-subtitle", {
                 type: "words",
-                mask: "words"
+                mask: "lines"
             });
-            gsap.from(splitSubtitle.words, {
+            timeline.from(splitSubtitle.words, {
                 yPercent: -100,
-                duration: 1.2,
-                ease: "expo.out",
-                delay: 2.3,
-                stagger: 0.05,
-            });
-
+                duration: 0.5,
+                ease: "power2.out",
+                stagger: 0.1,
+            }, "endTriangleGrow-=0.2");
+            timeline.set(".scroller", { overflowY: "auto" });
             gsap.set("#scroll-instruction", { opacity: 1 });
-            gsap.from("#scroll-instruction", {
+            
+            timeline.from("#scroll-instruction", {
                 yPercent: 110,
                 duration: 0.3,
                 ease: "back.out",
-                delay: 4,
-            });
-            gsap.to("#scroll-instruction", {
+            }, "+=5");
+            timeline.to("#scroll-instruction", {
                 yPercent: 110,
                 duration: 0.3,
                 ease: "back.in",
-                delay: 14,
-            });
+            }, "+=10");
         }
 
         p5.preload = () => {
@@ -353,7 +352,7 @@
     <div class="sketch">
         <P5 {sketch} />
     </div>
-    <div class="w-full flex flex-col gap-10 mb-10 items-center justify-center font-[Gantari] text-red-450">
+    <div class="w-full flex flex-col gap-10 mb-10 items-center justify-center font-[Gantari] text-red-450 z-50">
         <div class="flex flex-row items-end gap-10 mx-10 max-sm:mx-5 max-w-7xl">
             <img src="/marc.jpg" alt="Marc" class="rounded-xl w-full hidden lg:inline basis-2/5 shadow-2xl/50">
             <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
@@ -465,7 +464,7 @@
         inset: 0;
         height: 100vh;
         width: 100%;
-        overflow-y: auto;
+        overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
     }
@@ -522,7 +521,7 @@
         position: fixed;
         left: 50%;
         top: 50%;
-        z-index: 10; 
+        z-index: -5; 
         pointer-events: none;
         font-family: 'Gantari';
         font-weight: 800;
@@ -534,7 +533,7 @@
         position: fixed;
         left: 50%;
         top: 50%;
-        z-index: 10; 
+        z-index: -5; 
         pointer-events: none;
         font-family: 'Gantari';
         font-weight: 340;
