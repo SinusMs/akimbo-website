@@ -448,8 +448,13 @@
         position: fixed;
         overflow-y: scroll;
         -webkit-overflow-scrolling: touch;
+        -ms-overflow-style: none;
+        scrollbar-width: none; 
     }
-
+    :global(body)::-webkit-scrollbar {
+        display: none;
+    }
+    
     /* make the P5 container cover the full viewport */
     .sketch {
         position: fixed;
@@ -457,7 +462,7 @@
         z-index: -10;
         pointer-events: none;
     }
-
+    
     /* inner scroller used on mobile when body is fixed */
     .scroller {
         position: absolute;
@@ -467,8 +472,13 @@
         overflow-y: hidden;
         -webkit-overflow-scrolling: touch;
         touch-action: pan-y;
+        -ms-overflow-style: none;
+        scrollbar-width: none; 
     }
-
+    .scroller::-webkit-scrollbar {
+        display: none;
+    }
+    
     /* overlay controls */
     .controls {
         position: fixed;
