@@ -10,25 +10,24 @@
     const MILIS_TO_SECONDS = 0.001;
     const dpr = (typeof window !== 'undefined') ? (window.devicePixelRatio || 1) : 1;
 
-    let showControls = $state(false);
     let fps = $state(0);
     
-    let scale = $state(3.0);
-    let speed = $state(0.04);
-    let color1 = $state('#588157');
-    let color2 = $state('#9EB18B');
-    let sectionCount = $state(6);
-    let edgeSmoothing = $state(20);
-    let cornerRadius: number = $state(0.04);
-    let maxDiameterHorizontal = $state(0.75);
-    let maxDiameterVertical = $state(0.9);
-    let rotation: number = $state(1.35);
-    let nameFontScale = $state(0.63);
-    let nameVerticalOffset = $state(-0.21);
-    let subtitleFontScale = $state(0.18);
-    let subtitleVerticalOffset = $state(0.17);
-    let normalizedTriangleCenterX: number = $state(0.47);
-    let normalizedTriangleCenterY: number = $state(0.47);
+    let scale = 3.0;
+    let speed = 0.04;
+    let color1 = '#588157';
+    let color2 = '#9EB18B';
+    let sectionCount = 6;
+    let edgeSmoothing = 24;
+    let cornerRadius: number = 0.04;
+    let maxDiameterHorizontal = 0.75;
+    let maxDiameterVertical = 0.9;
+    let rotation: number = 1.35;
+    let nameFontScale = 0.63;
+    let nameVerticalOffset = -0.21;
+    let subtitleFontScale = 0.18;
+    let subtitleVerticalOffset = 0.17;
+    let normalizedTriangleCenterX: number = 0.47;
+    let normalizedTriangleCenterY: number = 0.47;
 
     let triangleRadius = $state(0);
     let triangleCenterX: number, triangleCenterY: number;
@@ -88,7 +87,7 @@
             
             let splitName: SplitText = SplitText.create("#logo-name", {
                 type: "words",
-                mask: "lines"
+                mask: "words"
             });
             timeline.from(splitName.words, {
                 yPercent: 100,
@@ -99,7 +98,7 @@
             
             let splitSubtitle: SplitText = SplitText.create("#logo-subtitle", {
                 type: "words",
-                mask: "lines"
+                mask: "words"
             });
             timeline.from(splitSubtitle.words, {
                 yPercent: -100,
@@ -140,7 +139,6 @@
 
         p5.draw = () => {
             p5.clear();
-            // updateTrianglePoints();
             if (noise) {
                 noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
                 noise.setUniform('uResolution', [p5.width, p5.height]);
@@ -149,7 +147,6 @@
                 noise.setUniform('uColor2', hexToRgbNormalized(color2));
                 noise.setUniform('uSectionCount', sectionCount);
                 noise.setUniform('uEdgeSmoothing', edgeSmoothing);
-
                 p5.shader(noise);
             }
             p5.noStroke();
@@ -181,6 +178,7 @@
             updateTrianglePoints();
         };
     };
+
     onMount(() => {
         const a = document.getElementById('contact-mail');
         const attr = a?.getAttribute('href');
@@ -194,9 +192,6 @@
                 .replace('adress', 'mb')
             );
         }
-
-        const splitName = SplitText.create("#logo-name", { type: "words", mask: "words" });
-        const splitSubtitle = SplitText.create("#logo-subtitle", { type: "words", mask: "words" });
 
         scrollTl = gsap.timeline({
             scrollTrigger: {
@@ -246,94 +241,10 @@
     });
 </script>
 
-<button class="controls-toggle" onclick={() => showControls = !showControls} aria-label="Toggle controls">
-    Debug Controls
-</button>
-
-<span style="position: fixed; z-index: 100;">FPS: {fps.toFixed(0)}</span>
-{#if showControls}
-<div class="controls">
-    <span>DPR: {window.devicePixelRatio}</span>
-    <label>
-        Scale
-        <input type="range" bind:value={scale} min="1" max="10" step="0.1" />
-        <span>{scale.toFixed(1)}</span>
-    </label>
-    <label>
-        Speed
-        <input type="range" bind:value={speed} min="0.001" max="0.1" step="0.001" />
-        <span>{speed.toFixed(3)}</span>
-    </label>
-    <label>
-        Color 1
-        <input type="color" bind:value={color1} />
-    </label>
-    <label>
-        Color 2
-        <input type="color" bind:value={color2} />
-    </label>
-    <label>
-        Sections
-        <input type="range" bind:value={sectionCount} min="2" max="10" step="2" />
-        <span>{sectionCount}</span>
-    </label>
-    <label>
-        Edge Smoothing
-        <input type="range" bind:value={edgeSmoothing} min="0" max="60" step="2" />
-        <span>{edgeSmoothing}</span>
-    </label>
-    <label>
-        Corner Radius
-        <input type="range" bind:value={cornerRadius} min="0" max="1" step="0.01" />
-        <span>{cornerRadius}</span>
-    </label>
-    <label>
-        Diameter Horizontal
-        <input type="range" bind:value={maxDiameterHorizontal} min="0" max="1" step="0.01" />
-        <span>{maxDiameterHorizontal}</span>
-    </label>
-    <label>
-        Diameter Vertical
-        <input type="range" bind:value={maxDiameterVertical} min="0" max="1" step="0.01" />
-        <span>{maxDiameterVertical}</span>
-    </label>
-    <label>
-        Rotation
-        <input type="range" bind:value={rotation} min="0" max="3.1415" step="0.01" />
-        <span>{rotation}</span>
-    </label>
-    <label>
-        Name Font Scale
-        <input type="range" bind:value={nameFontScale} min="0" max="1" step="0.01" />
-        <span>{nameFontScale}</span>
-    </label>
-    <label>
-        Name Vertical Position
-        <input type="range" bind:value={nameVerticalOffset} min="-1" max="1" step="0.01" />
-        <span>{nameVerticalOffset}</span>
-    </label>
-    <label>
-        Subtitle Font Scale
-        <input type="range" bind:value={subtitleFontScale} min="0" max="1" step="0.01" />
-        <span>{subtitleFontScale}</span>
-    </label>
-    <label>
-        Subtitle Vertical Position
-        <input type="range" bind:value={subtitleVerticalOffset} min="-1" max="1" step="0.01" />
-        <span>{subtitleVerticalOffset}</span>
-    </label>
-    <label>
-        Triangle Center X
-        <input type="range" bind:value={normalizedTriangleCenterX} min="0" max="1" step="0.01" />
-        <span>{normalizedTriangleCenterX}</span>
-    </label>
-    <label>
-        Triangle Center Y
-        <input type="range" bind:value={normalizedTriangleCenterY} min="0" max="1" step="0.01" />
-        <span>{normalizedTriangleCenterY}</span>
-    </label>
-</div>
-{/if}
+<span style="position: fixed; z-index: 100;">
+    FPS: {fps.toFixed(0)}<br>
+    DPR: {window.devicePixelRatio}
+</span>
 
 <!-- element displayed as loading Screen for P5 sketches -->
 <div id="p5_loading"></div>
@@ -478,54 +389,6 @@
     }
     .scroller::-webkit-scrollbar {
         display: none;
-    }
-    
-    /* overlay controls */
-    .controls {
-        position: fixed;
-        top: 1rem;
-        left: 1rem;
-        display: flex;
-        flex-direction: column;
-        gap: 0.75rem;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.5rem 0.75rem;
-        border-radius: 8px;
-        z-index: 20;
-        align-items: center;
-        box-shadow: 0 6px 18px rgba(0,0,0,0.12);
-    }
-
-    label {
-        display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        align-items: flex-start;
-        font-size: 0.9rem;
-    }
-
-    input[type="range"] {
-        width: 260px;
-    }
-
-    /* small toggle button in the top-right corner */
-    .controls-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        z-index: 30;
-        background: rgba(0,0,0,0.6);
-        color: white;
-        border: none;
-        padding: 0.4rem 0.6rem;
-        border-radius: 6px;
-        font-size: 0.85rem;
-        cursor: pointer;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    }
-
-    .controls-toggle:active {
-        transform: translateY(1px);
     }
 
     .logo-name {
