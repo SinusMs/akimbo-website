@@ -276,7 +276,7 @@
                         <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                     </h1>
                     <img src="marc.jpg" alt="Marc" class="rounded-xl w-full max-w-150 lg:hidden self-center">
-                    <div class="text-md md:text-2xl">
+                    <div class="text-lg sm:text-xl">
                         Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering. 
                         Angetrieben von meiner Faszination am Zusammenspiel von Gestaltung und Technologie 
                         übernehme ich als Full-Stack-Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
@@ -292,7 +292,7 @@
                     Technologien
                     <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                 </h1>
-                <div class="text-md md:text-2xl">
+                <div class="text-lg sm:text-xl">
                     Mit Erfahrung in diversen Sprachen, Libraries und Frameworks finde ich den idealen Tech-Stack für dein Projekt. 
                     Neben den hier aufgeführten Frameworks und Libraries setze ich bei Bedarf auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
                 </div>
@@ -300,8 +300,8 @@
                     Backend
                 </h2>
                 <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
-                    <a href="https://rubyonrails.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/rails.svg" alt="Ruby on Rails"></a>
-                    <a href="https://laravel.com" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/laravel.svg" alt="Laravel"></a>
+                    <a href="https://rubyonrails.org" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/rails.svg" alt="Ruby on Rails"></a>
+                    <a href="https://laravel.com" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/laravel.svg" alt="Laravel"></a>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Frontend
@@ -316,7 +316,7 @@
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Game Engines
                 </h2>
-                <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-12 px-6">
+                <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
                     <a href="https://godotengine.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/godot.svg" alt="Godot"></a>
                     <a href="https://unity.com" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/unity.png" alt="Unity"></a>
                 </div>
@@ -330,11 +330,11 @@
                     <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                 </h1>
                 <a id="contact-mail" rel="nofollow, noindex" href="to-contact-adress/">
-                    <div class="email text-2xl font-semibold text-red-300">
+                    <div class="email text-2xl sm:text-3xl font-semibold text-red-300">
                         hel<!--shitfuck-->lo@<span>&#97;k</span>imbo.<span>contact-sales.</span>dev
                     </div>
                 </a>
-                <div class="text-md md:text-2xl">
+                <div class="text-lg sm:text-xl">
                     Lass uns gemeinsam etwas Großartiges erschaffen!
                 </div>
             </div>
