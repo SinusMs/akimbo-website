@@ -363,6 +363,43 @@
         <div class="flex flex-row items-center place-content-center gap-10 m-10 max-sm:m-5 max-w-7xl bg-red-50 rounded-xl px-10 py-8 shadow-2xl/50">
             <div class="flex flex-col place-content-center justify-center h-full gap-6">
                 <h1 class="text-2xl sm:text-3xl font-bold">
+                    Technologien
+                    <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
+                </h1>
+                <div class="text-md md:text-2xl">
+                    Mit Erfahrung in diversen Sprachen, Librarys und Frameworks finde ich den idealen Tech-stack für dein Projekt. 
+                    Neben den hier aufgeführten Frameworks und Librarys setze ich bei Bedarf auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-4 lg:text-center">
+                    Backend
+                </h2>
+                <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
+                    <a href="https://rubyonrails.org" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/rails.svg" alt="Ruby on Rails"></a>
+                    <a href="https://laravel.com" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/laravel.svg" alt="Laravel"></a>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
+                    Frontend
+                </h2>
+                <div class="w-full flex flex-row flex-wrap place-content-evenly items-center gap-12 px-6">
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="/logos/svelte.svg" alt="Svelte" class="max-h-[120px]"></a>
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="/logos/bootstrap.svg" alt="Bootstrap" class="max-h-[120px]"></a>
+                    <a href="https://svelte.dev" class="h-10 sm:h-20 flex justify-center"><img src="/logos/tailwind.svg" alt="Tailwind" class="max-h-[120px]"></a>
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="/logos/p5.png" alt="p5.js" class="max-h-[120px]"></a>
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="/logos/gsap.svg" alt="GSAP" class="max-h-[120px] bg-[#313131] p-3 rounded-lg"></a>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
+                    Game Engines
+                </h2>
+                <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-12 px-6">
+                    <a href="https://rubyonrails.org" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/godot.svg" alt="Godot"></a>
+                    <a href="https://laravel.com" class="w-full max-w-70 flex flex-col justify-center"><img src="/logos/unity.png" alt="Unity"></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-row items-center place-content-center gap-10 m-10 max-sm:m-5 max-w-7xl bg-red-50 rounded-xl px-10 py-8 shadow-2xl/50">
+            <div class="flex flex-col place-content-center justify-center h-full gap-6">
+                <h1 class="text-2xl sm:text-3xl font-bold">
                     Kontakt
                     <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                 </h1>
