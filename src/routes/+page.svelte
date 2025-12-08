@@ -1,5 +1,5 @@
 <script lang="ts">
-    import type { Shader } from "p5";
+    import type { Graphics, Shader } from "p5";
     import P5, { type Sketch } from "p5-svelte";
     import { gsap } from "gsap";
     import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -17,7 +17,7 @@
     let color1 = '#588157';
     let color2 = '#9EB18B';
     let sectionCount = 6;
-    let edgeSmoothing = 24;
+    let edgeSmoothing = 10;
     let cornerRadius: number = 0.04;
     let maxDiameterHorizontal = 0.75;
     let maxDiameterVertical = 0.9;
@@ -48,6 +48,9 @@
 
     const sketch: Sketch = (p5) => {
         let noise: Shader;
+        let simplexNoise: Shader;
+        let simplexBuf: Graphics;
+        let bufScale = 0.5;
 
         function updateTrianglePoints(forceRadius?: number) {
             if (forceRadius == undefined) {
@@ -122,34 +125,41 @@
         }
 
         p5.preload = () => {
-            noise = p5.loadShader('noise.vert', dpr >= 2 ? 'noise_noAA.frag' : 'noise.frag');
+            noise = p5.loadShader('noise.vert', 'noise_noAA.frag');
+            simplexNoise = p5.loadShader('noise.vert', 'simplexNoise.frag');
         };
 
         p5.setup = () => {
             p5.setAttributes({ antialias: dpr < 2 });
             p5.pixelDensity(p5.min(dpr, 2));
             p5.createCanvas(p5.windowWidth, p5.windowHeight, p5.WEBGL);
+            p5.noStroke();
             p5.angleMode(p5.RADIANS);
             updateTrianglePoints();
             setupAnimations();
             setInterval(() => {
                 fps = p5.frameRate();
             }, 50);
+
+            simplexBuf = p5.createGraphics(p5.width * bufScale, p5.height * bufScale, p5.WEBGL);
         };
 
         p5.draw = () => {
+            simplexNoise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
+            simplexNoise.setUniform('uResolution', [simplexBuf.width, simplexBuf.height]);
+            simplexNoise.setUniform('uScale', scale / dpr);
+            simplexBuf.shader(simplexNoise);
+            simplexBuf.rect(-simplexBuf.width / 2, -simplexBuf.height / 2, simplexBuf.width, simplexBuf.height);
+            
             p5.clear();
-            if (noise) {
-                noise.setUniform('uTime', p5.millis() * MILIS_TO_SECONDS * speed);
-                noise.setUniform('uResolution', [p5.width, p5.height]);
-                noise.setUniform('uScale', scale / dpr);
-                noise.setUniform('uColor1', hexToRgbNormalized(color1));
-                noise.setUniform('uColor2', hexToRgbNormalized(color2));
-                noise.setUniform('uSectionCount', sectionCount);
-                noise.setUniform('uEdgeSmoothing', edgeSmoothing);
-                p5.shader(noise);
-            }
-            p5.noStroke();
+            noise.setUniform('uResolution', [p5.width * p5.pixelDensity(), p5.height * p5.pixelDensity()]);
+            noise.setUniform('uColor1', hexToRgbNormalized(color1));
+            noise.setUniform('uColor2', hexToRgbNormalized(color2));
+            noise.setUniform('uSectionCount', sectionCount);
+            noise.setUniform('uEdgeSmoothing', edgeSmoothing);
+            noise.setUniform('uSimplexNoiseTexture', simplexBuf);
+            p5.shader(noise);
+
             var rad = cornerRadius * triangleRadius;
 
             p5.translate(triangleCenterX, triangleCenterY);
@@ -175,6 +185,7 @@
 
         p5.windowResized = () => {
             p5.resizeCanvas(p5.windowWidth, p5.windowHeight);
+            simplexBuf.resizeCanvas(p5.width * bufScale, p5.height * bufScale);
             updateTrianglePoints();
         };
     };
