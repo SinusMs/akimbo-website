@@ -264,7 +264,7 @@
     <div class="sketch">
         <P5 {sketch} />
     </div>
-    <div class="w-full flex flex-col gap-10 mb-10 items-center justify-center font-[Gantari] text-red-450 z-50">
+    <div class="w-full flex flex-col gap-10 mb-20 items-center justify-center font-[Gantari] text-red-450 z-50">
         <div class="flex flex-row items-end gap-10 mx-10 max-sm:mx-5 max-w-7xl">
             <img id="about-image" src="marc.jpg" alt="Marc" class="rounded-xl w-25 hidden lg:inline basis-2/5 shadow-2xl/50">
             <div id="about" class="bg-red-50 relative w-full rounded-xl px-10 py-8 lg:basis-3/5 shadow-2xl/50">
@@ -306,7 +306,7 @@
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Frontend
                 </h2>
-                <div class="w-full flex flex-row flex-wrap place-content-evenly items-center gap-12 px-6">
+                <div class="w-full flex flex-row flex-wrap place-content-evenly items-center gap-8 max-sm:gap-x-4 sm:gap-x-20 md:gap-12 md:gap-x-8">
                     <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="logos/svelte.svg" alt="Svelte" class="max-h-[120px]"></a>
                     <a href="https://getbootstrap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/bootstrap.svg" alt="Bootstrap" class="max-h-[120px]"></a>
                     <a href="https://tailwindcss.com" class="h-10 sm:h-20 flex justify-center"><img src="logos/tailwind.svg" alt="Tailwind" class="max-h-[120px]"></a>
