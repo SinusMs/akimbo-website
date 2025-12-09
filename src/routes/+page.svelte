@@ -277,10 +277,10 @@
                     </h1>
                     <img src="marc.jpg" alt="Marc" class="rounded-xl w-full max-w-150 lg:hidden self-center">
                     <div class="text-lg sm:text-xl">
-                        Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering. 
-                        Angetrieben von meiner Faszination am Zusammenspiel von Gestaltung und Technologie 
-                        übernehme ich als Full-Stack-Entwickler alle Verantwortlichkeiten im Entwicklungsprozess selbst, 
-                        von Design über Front- und Backend-Programmierung bis Hosting und Maintenance.
+                        Hi! Ich bin Marc, Gründer von Akimbo Creative Engineering.
+                        Meine Begeisterung für die Verbindung von Gestaltung und Technologie treibt mich an.
+                        Deshalb übernehme ich als Full-Stack-Entwickler alle Aspekte der Umsetzung selbst: 
+                        von Design über Front- und Backend-Entwicklung bis hin zu Hosting und langfristiger Betreuung.
                     </div>
                 </div>
             </div>
@@ -293,8 +293,8 @@
                     <div class="bg-red-200 h-2 w-20 rounded-sm mt-4"></div>
                 </h1>
                 <div class="text-lg sm:text-xl">
-                    Mit Erfahrung in diversen Sprachen, Libraries und Frameworks finde ich den idealen Tech-Stack für dein Projekt. 
-                    Neben den hier aufgeführten Frameworks und Libraries setze ich bei Bedarf auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
+                    Dank meiner Erfahrung in einer Vielzahl von Programmiersprachen, Libraries und Frameworks finde ich den idealen Tech-Stack für dein Projekt. 
+                    Bei Bedarf setze ich neben den hier aufgeführten auch weitere Technologien ein, um optimale Ergebnisse zu erzielen.
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-4 lg:text-center">
                     Backend
