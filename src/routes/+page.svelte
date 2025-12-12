@@ -82,7 +82,7 @@
                 onUpdate: () => {
                     updateTrianglePoints(obj.r);
                 }
-            }, 0.5);
+            }, 0);
             timeline.addLabel("endTriangleGrow");
             
             let splitName: SplitText = SplitText.create("#logo-name", {
