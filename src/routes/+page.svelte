@@ -300,24 +300,24 @@
                     Backend
                 </h2>
                 <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
-                    <a href="https://rubyonrails.org" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/rails.svg" alt="Ruby on Rails"></a>
-                    <a href="https://laravel.com" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/laravel.svg" alt="Laravel"></a>
+                    <a href="https://rubyonrails.org" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/rails.png" alt="Ruby on Rails"></a>
+                    <a href="https://laravel.com" class="w-full max-w-60 flex flex-col justify-center"><img src="logos/laravel.png" alt="Laravel"></a>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Frontend
                 </h2>
                 <div class="w-full flex flex-row flex-wrap place-content-evenly items-center gap-8 max-sm:gap-x-4 sm:gap-x-20 md:gap-12 md:gap-x-8">
-                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="logos/svelte.svg" alt="Svelte" class="max-h-[120px]"></a>
-                    <a href="https://getbootstrap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/bootstrap.svg" alt="Bootstrap" class="max-h-[120px]"></a>
-                    <a href="https://tailwindcss.com" class="h-10 sm:h-20 flex justify-center"><img src="logos/tailwind.svg" alt="Tailwind" class="max-h-[120px]"></a>
+                    <a href="https://svelte.dev" class="h-15 sm:h-20 flex justify-center"><img src="logos/svelte.png" alt="Svelte" class="max-h-[120px]"></a>
+                    <a href="https://getbootstrap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/bootstrap.png" alt="Bootstrap" class="max-h-[120px]"></a>
+                    <a href="https://tailwindcss.com" class="h-10 sm:h-20 flex justify-center"><img src="logos/tailwind.png" alt="Tailwind" class="max-h-[120px]"></a>
                     <a href="https://p5js.org" class="h-15 sm:h-20 flex justify-center"><img src="logos/p5.png" alt="p5.js" class="max-h-[120px]"></a>
-                    <a href="https://gsap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/gsap.svg" alt="GSAP" class="max-h-[120px] bg-[#313131] p-3 rounded-lg"></a>
+                    <a href="https://gsap.com" class="h-15 sm:h-20 flex justify-center"><img src="logos/gsap.png" alt="GSAP" class="max-h-[120px] bg-[#313131] p-3 rounded-lg"></a>
                 </div>
                 <h2 class="text-2xl sm:text-3xl font-bold mt-6 lg:text-center">
                     Game Engines
                 </h2>
                 <div class="w-full flex flex-col sm:flex-row place-content-evenly items-center gap-8 md:gap-12 px-6">
-                    <a href="https://godotengine.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/godot.svg" alt="Godot"></a>
+                    <a href="https://godotengine.org" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/godot.png" alt="Godot"></a>
                     <a href="https://unity.com" class="w-full max-w-70 flex flex-col justify-center"><img src="logos/unity.png" alt="Unity"></a>
                 </div>
             </div>
